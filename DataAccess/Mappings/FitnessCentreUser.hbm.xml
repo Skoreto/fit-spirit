@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="DataAccess" namespace="DataAccess.Model">
+  <class name="FitnessCentreUser" table="fitness_centre_user" lazy="false">
+    <id name="Id" column="user_id">
+      <generator class="native" />
+      <!-- native - hodnoty se budou nativním způsobem přiřazovat do databázového serveru -->
+    </id>
+    <property name="Login" column="login" />
+    <property name="Password" column="password" />
+    <property name="FirstName" column="first_name" />
+    <property name="LastName" column="last_name" />
+    <property name="Street" column="street" />
+    <property name="City" column="city" />
+    <property name="PostCode" column="post_code" />
+    <property name="Mail" column="mail" />
+    <property name="Telephone" column="telephone" />
+    <property name="Credit" column="credit" />
+    <property name="Description" column="description" />
+    <property name="ProfilePhotoName" column="profile_photo_name" />
+    <many-to-one name="Role" column="role_id" foreign-key="role_id" />
+    <property name="IsActive" column="is_active" />
+  </class>
+</hibernate-mapping>

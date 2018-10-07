@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="DataAccess" namespace="DataAccess.Model">
+  <class name="Photography" table="photography">
+    <id name="Id" column="id">
+      <generator class="native" />
+      <!-- native - hodnoty se budou nativním způsobem přiřazovat do databázového serveru -->
+    </id>
+    <property name="Name" column="name" />
+    <property name="IllustrationImageName" column="illustration_image_name" />
+    <property name="IllustrationThumbImageName" column="illustration_thumb_image_name" />
+  </class>
+</hibernate-mapping>

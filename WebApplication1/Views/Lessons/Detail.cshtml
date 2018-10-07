@@ -1,0 +1,61 @@
+﻿@using DataAccess.Model
+@model Lesson
+@{
+    ViewBag.Title = "Detail";
+}
+
+<div class="panel panel-info">
+    <div class="panel-heading">Detail lekce @Model.ActivityType.Name</div>
+    <table class="table table-bordered table-hover table-condensed">
+        <thead>
+
+        </thead>
+        <tbody>
+            <tr>
+                <td>Datum</td>
+                <td>@Model.StartTime.ToString("dddd d.M.yyyy")</td>
+            </tr>
+            <tr>
+                <td>Čas zahájení/ukončení</td>
+                <td>@Model.StartTime.ToString("H:mm") - @Model.EndTime.ToString("H:mm")</td>
+            </tr>
+            <tr>
+                <td>Aktivita</td>
+                <td>@Model.ActivityType.Name</td>
+            </tr>
+            <tr>
+                <td>Místnost</td>
+                <td>@Model.Room.Name</td>
+            </tr>
+            <tr>
+                <td>Kapacita</td>
+                <td>@Model.ActualCapacity/@Model.OriginalCapacity</td>
+            </tr>
+            <tr>
+                <td>Instruktor</td>
+                <td>@Model.Instructor.FirstName @Model.Instructor.LastName</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+@Html.Raw(Model.DescriptionLesson)
+
+<div class="panel panel-warning">
+    <div class="panel-heading">Registrovaní klienti</div>
+    <ul class="list-group">
+        @foreach (FitnessCentreUser client in ViewBag.ListReservedClients)
+        {
+            <li class="list-group-item"><span class="badge">ID @client.Id</span>@client.FirstName @client.LastName</li>
+        }
+    </ul>
+</div>
+
+@if (!Request.IsAjaxRequest())
+{
+    <div class="form-group margin-top">
+        <div class="col-sm-offset-2 col-sm-10">
+            <a href="@Url.Action("Index", "Lessons", new { isActive = true })" class="btn btn-info pull-right"><span class="glyphicon glyphicon-chevron-left"></span> Zpět</a>
+        </div>
+    </div>
+}

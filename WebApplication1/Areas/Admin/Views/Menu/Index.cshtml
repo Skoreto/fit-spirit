@@ -1,0 +1,46 @@
+﻿@model DataAccess.Model.FitnessCentreUser
+@using WebApplication1.Class
+@{
+    ViewBag.Title = "Index";
+    Layout = null;
+}
+
+<li class="@Html.IsActive("Home", "Index") nav-item"><a href="@Url.Action("Index", "Home")"><i class="fa fa-home"></i> Úvod</a></li>
+<li class="nav-item"><a href="@Url.Action("Index", "Lessons", new { isActive = true })"><i class="fa fa-calendar"></i> Lekce</a></li>
+
+@if (Model.Role.Identificator == "client")
+{
+    @*<li class="nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "Index" ? "active" : "")"><a href="@Url.Action("Index", "Lessons", new { isActive = true })"><i class="fa fa-calendar"></i> Lekce</a></li>*@
+    <li class="nav-item @Html.IsActive("Reservations", "Index")"><a href="@Url.Action("Index", "Reservations", new { isActive = true })"><i class="fa fa-check-square-o"></i> Rezervace</a></li>
+    <li class="nav-item @Html.IsActive("Index", "ActivityTypes")"><a href="@Url.Action("Index", "ActivityTypes")"><i class="fa fa-child"></i> Aktivity</a></li>
+    <li class="nav-item"><a href="@Url.Action("Index", "Rooms")"><i class="fa fa-map-marker"></i> Místnosti</a></li>
+    <li class="nav-item"><a href="@Url.Action("Index", "Gallery")"><i class="fa fa-photo"></i> Galerie</a></li>
+    <li class="nav-item"><a href="@Url.Action("Index", "Instructors")"><i class="fa fa-users"></i> Instruktoři</a></li>
+}
+else if (Model.Role.Identificator == "instructor")
+{   
+    <li class="nav-item"><a href="@Url.Action("Index", "ActivityTypes")"><i class="fa fa-child"></i> Aktivity</a></li>
+    <li class="nav-item"><a href="@Url.Action("Index", "Rooms")"><i class="fa fa-map-marker"></i> Místnosti</a></li>
+    <li class="nav-item"><a href="@Url.Action("Index", "Gallery")"><i class="fa fa-photo"></i> Galerie</a></li>
+    <li class="nav-item"><a href="@Url.Action("Index", "Instructors")"><i class="fa fa-users"></i> Instruktoři</a></li>
+}
+else if (Model.Role.Identificator == "staff")
+{   
+    <li class="nav-item"><a href="@Url.Action("Index", "ActivityTypes")"><i class="fa fa-child"></i> Aktivity</a></li>
+    <li class="nav-item"><a href="@Url.Action("Index", "Rooms")"><i class="fa fa-map-marker"></i> Místnosti</a></li>
+    <li class="nav-item"><a href="@Url.Action("Index", "Gallery")"><i class="fa fa-photo"></i> Galerie</a></li>
+    <li class="nav-item dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="0" data-close-others="false" href="#"><i class="fa fa-users"></i> Uživatelé <i class="fa fa-angle-down"></i></a>
+        <ul class="dropdown-menu">
+            <li><a href="@Url.Action("Index", "Clients")"><i class="fa fa-user"></i> Klienti</a></li>
+            <li><a href="@Url.Action("Index", "Instructors")"><i class="fa fa-users"></i> Instruktoři</a></li>
+            <li><a href="@Url.Action("Index", "Staffs")"><i class="fa fa-female"></i> Obsluha</a></li>
+        </ul>
+    </li>
+    <li class="nav-item"><a href="@Url.Action("Index", "CreditAdministration")"><i class="fa fa-credit-card"></i> Správa kreditu</a></li>
+    <li class="nav-item"><a href="@Url.Action("Index", "RolesManagement")"><i class="fa fa-eye"></i> Role</a></li>
+}
+
+<li class="nav-item"><a href="@Url.Action("Logout", "Login")"><i class="fa fa-sign-out"></i> Odhlásit</a></li>
+@*<li class="nav-item"><a href="#">Kontakt</a></li>*@
+

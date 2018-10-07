@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+This template was written to work with NHibernate.Test.
+Copy the template to your NHibernate.Test project folder and rename it in hibernate.cfg.xml and change it 
+for your own use before compile tests in VisualStudio.
+-->
+<!-- This is the System.Data.dll provider for SQL Server -->
+<hibernate-configuration  xmlns="urn:nhibernate-configuration-2.2" >
+  <session-factory>
+    <property name="connection.driver_class">NHibernate.Driver.SqlClientDriver</property>
+    <property name="connection.connection_string">
+      Data Source=TOMAS-HP\SQLEXPRESS;Initial Catalog=FitnessCentrum;User Id=sa;Password=repas;
+      <!--Data Source=tcp:q6aox2yjki.database.windows.net,1433;Initial Catalog=fitspirit;User Id=repas@q6aox2yjki;Password=r85Hukk76f;-->
+    </property>
+    <property name="dialect">NHibernate.Dialect.MsSql2008Dialect</property>
+    <mapping assembly="DataAccess"/>
+  </session-factory>
+</hibernate-configuration>

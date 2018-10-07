@@ -1,0 +1,127 @@
+﻿body {
+    background: #eee url("images/loginBackground3.png");
+}
+
+html, body {
+    position: relative;
+    height: 100%;
+}
+
+/* Box pro error zprávu */
+.message-container {
+    position: relative;
+    width: 320px;
+    margin: 40px auto -80px;   
+}
+
+.login-container {
+    position: relative;
+    width: 300px;
+    margin: 120px auto;
+    padding: 20px 40px 40px;
+    text-align: center;
+    background: #fff;
+    border: 1px solid #ccc;
+}
+
+.login-container::before, .login-container::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 3.5px;
+    left: 0;
+    background: #fff;
+    z-index: -1;
+    -webkit-transform: rotateZ(4deg);
+    -moz-transform: rotateZ(4deg);
+    -ms-transform: rotateZ(4deg);
+    border: 1px solid #ccc;
+}
+
+.login-container::after {
+    top: 5px;
+    z-index: -2;
+    -webkit-transform: rotateZ(-2deg);
+    -moz-transform: rotateZ(-2deg);
+    -ms-transform: rotateZ(-2deg);
+}
+
+.avatar {
+    width: 100px;
+    height: 100px;
+    margin: 10px auto 30px;
+    border-radius: 100%;
+    border: 2px solid #aaa;
+    background-size: cover;
+}
+
+.form-box input {
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+    height: 40px;
+    border: 1px solid #ccc;
+    
+    background: #fafafa;
+    transition: 0.2s ease-in-out;
+}
+
+.form-box input:focus {
+    outline: 0;
+    background: #eee;
+}
+
+.form-box input[type="text"] {
+    border-radius: 5px 5px 0 0;
+    text-transform: lowercase;
+}
+
+.form-box input[type="password"] {
+    border-radius: 0 0 5px 5px;
+    border-top: 0;
+}
+
+.form-box button.login {
+    margin-top: 15px;
+    padding: 10px 20px;
+}
+
+.form-control {
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  -ms-border-radius: 0;
+  -o-border-radius: 0;
+  border-radius: 0;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+}
+.form-control:focus {
+  border-color: #ba6060;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+
+
+.btn-theme {
+  background: #ba6060;
+  border: 1px solid #ba6060;
+  color: #fff;
+}
+.btn-theme:hover {
+  background: #c98484;
+  border: 1px solid #c98484;
+  color: #fff;
+}
+
+.avatar {
+    width: 100px;
+    height: 100px;
+    margin: 10px auto 30px;
+    border-radius: 100%;
+    border: 2px solid #aaa;
+    background-size: cover;
+    background-image: url("images/manSilhouette.png");
+}

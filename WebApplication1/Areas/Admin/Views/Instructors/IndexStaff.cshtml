@@ -1,0 +1,54 @@
+﻿@using DataAccess.Model
+@model List<FitnessCentreUser>
+
+@{
+    ViewBag.Title = "Instruktoři";
+}
+
+@section Breadcrumbs
+{
+    <ul class="breadcrumbs-list">
+        <li class="breadcrumbs-label">Nacházíte se zde:</li>
+        <li><a href="#">Uživatelé</a><i class="fa fa-angle-right"></i></li>
+        <li class="current">@ViewBag.Title</li>
+    </ul>
+}
+
+<div class="page-row">
+    <p>Naši instruktoři di poradí s klienty všech věkových kategorií a různé fyzické kondice. Z aktivit, které nabízíme si vybere opravdu každý!</p>
+</div>
+<div class="row page-row">
+    @foreach (FitnessCentreUser instructor in Model)
+{
+    <div class="col-sm-6 col-md-4 col-xs-12 text-center">
+        <div class="album-cover instructors-staff">
+            @if (instructor.ProfilePhotoName != null)
+            {
+                <a href="@Url.Action("Detail", "Instructors", new { id = instructor.Id })"><img class="img-responsive" src="@Url.Content("~/uploads/profilePhoto/" + instructor.ProfilePhotoName)" alt="Fotografie @instructor.FirstName @instructor.LastName" /></a>
+            }
+            <div class="desc">
+                <h4><small><a href="@Url.Action("Detail", "Instructors", new { id = instructor.Id })">@instructor.FirstName @instructor.LastName</a></small></h4>
+                <a href="@Url.Action("Edit", "Instructors", new { id = instructor.Id })" class="btn btn-warning margin-bottom margin-top"><span class="glyphicon glyphicon-pencil"></span> Upravit</a>
+
+                @if (instructor.IsActive)
+                {
+                    if (instructor.IsDeletable)
+                    {
+                        <a href="@Url.Action("Delete", "Instructors", new { id = instructor.Id, onclick = "return confirm('Opravdu si přejete smazat účet instruktora " + instructor.FirstName + " " + instructor.LastName + "?" + "');"})" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Smazat</a>
+                    }
+                    else
+                    {
+                        <a href="@Url.Action("Deactivate", "Instructors", new { id = instructor.Id, onclick = "return confirm('Opravdu si přejete deaktivovat účet instruktora " + instructor.FirstName + " " + instructor.LastName + "?" + "');"})" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span> Deaktivovat</a>
+                    }                   
+                }
+                else
+                {
+                    <a href="@Url.Action("Activate", "Instructors", new { id = instructor.Id })" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> Aktivovat</a>
+                }             
+            </div>
+        </div>
+    </div>
+}
+</div>
+
+<a href="@Url.Action("Create", "Instructors")" class="btn btn-default pull-right">Přidat instruktora</a>

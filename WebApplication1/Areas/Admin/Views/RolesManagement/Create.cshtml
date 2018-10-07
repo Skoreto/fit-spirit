@@ -1,0 +1,35 @@
+﻿@model DataAccess.Model.FitnessCentreRole
+@{
+    ViewBag.Title = "Create";
+}
+<br />
+<h2>Nová role</h2>
+<br />
+
+@using (Html.BeginForm("Add", "RolesManagement", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Identifikátor</label>
+        <div class="col-sm-10">
+            @Html.TextBoxFor(x => x.Identificator, new { @class = "form-control" }) 
+            @Html.ValidationMessageFor(x => x.Identificator)
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Pojmenování</label>
+        <div class="col-sm-10">
+            @Html.TextBoxFor(x => x.RoleDescription, new { @class = "form-control" }) 
+            @Html.ValidationMessageFor(x => x.RoleDescription)
+        </div>
+    </div>
+
+    <br/>
+    <br/>
+    
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-default">Vytvořit roli</button>
+        </div>
+    </div>
+}

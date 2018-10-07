@@ -1,0 +1,50 @@
+﻿@using DataAccess.Model;
+@model List<Room>
+
+@{
+    ViewBag.Title = "Místnosti";
+}
+
+<div id="blueimp-gallery" class="blueimp-gallery">
+    <div class="slides"></div>
+    <h3 class="title"></h3>
+    <a class="prev">‹</a>
+    <a class="next">›</a>
+    <a class="close">×</a>
+    <a class="play-pause"></a>
+    <ol class="indicator"></ol>
+</div>
+
+<div class="page-row">
+    <p>Chceme, abyste se u nás cítily příjemně a tomu jsme podřídili zbudování celého studia. Pro maminky s dětmi máme připravený dětský koutek se spoustou hraček.</p>
+</div>
+<div class="row page-row">
+    @foreach (Room room in Model)
+    {
+        <div class="col-md-6 col-sm-6 col-xs-12 text-center">
+            <div class="album-cover rooms-client">
+                @if (room.IllustrationThumbImageName != null)
+                {
+                    <a href="@Url.Content("~/uploads/roomImage/" + room.IllustrationImageName)" data-gallery><img class="img-responsive" src="@Url.Content("~/uploads/roomThumbImage/" + room.IllustrationThumbImageName)" alt="Ilustrace @room.Name" /></a>
+                }
+                <div class="desc">
+                    <h4><small><a href="@Url.Content("~/uploads/roomImage/" + room.IllustrationImageName)" title="@room.Name" data-gallery>@room.Name</a></small></h4>
+                    @if (room.ShortDescription != null)
+                    {
+                        <p>@Html.Raw(room.ShortDescription)</p>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@if (ViewBag.Pages != null)
+{
+    <ul class="pagination">
+        @for (int i = 1; i <= ViewBag.Pages; i++)
+        {
+            <li class="@(ViewBag.CurrentPage == i ? "active" : "")"><a href="@Url.Action("Index", "Rooms", new {page=i})">@i</a></li>
+        }
+    </ul>
+}

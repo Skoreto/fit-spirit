@@ -1,0 +1,37 @@
+﻿@using DataAccess.Model
+@model List<ActivityType>
+
+@{
+    ViewBag.Title = "Aktivity";
+}
+
+<div class="page-row">
+    <p>Naše studio je zaměřené pro klientky všech věkových kategorií a různé fyzické kondice. Z aktivit, které nabízíme si vybere opravdu každý!</p>
+</div>
+<div class="row page-row">
+    @foreach (ActivityType activityType in Model)
+    {
+        <div class="col-md-6 col-sm-6 col-xs-12 text-center">
+            <div class="album-cover">
+                @if (activityType.IllustrationThumbImageName != null)
+                {
+                    <a href="@Url.Action("Detail", "ActivityTypes", new {id = activityType.Id})"><img class="img-responsive" src="@Url.Content("~/uploads/activityThumbImage/" + activityType.IllustrationThumbImageName)" alt="Ilustrace @activityType.Name"/></a>
+                }                
+                <div class="desc">
+                    <h4><small><a href="@Url.Action("Detail", "ActivityTypes", new {id = activityType.Id})">@activityType.Name</a></small></h4>
+                    <p>@Html.Raw(activityType.ShortDescription) <a class="read-more" href="@Url.Action("Detail", "ActivityTypes", new {id = activityType.Id})">Více<i class="fa fa-chevron-right"></i></a></p>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@if (ViewBag.Pages != null)
+{
+    <ul class="pagination">
+        @for (int i = 1; i <= ViewBag.Pages; i++)
+        {
+            <li class="@(ViewBag.CurrentPage == i ? "active" : "")"><a href="@Url.Action("Index", "ActivityTypes", new {page=i})">@i</a></li>
+        }
+    </ul>
+}

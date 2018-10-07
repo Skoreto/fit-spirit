@@ -1,0 +1,67 @@
+﻿@using DataAccess.Model
+@model DataAccess.Model.Lesson
+@{
+    ViewBag.Title = "Detail";
+}
+<br />
+
+<div class="panel panel-info">
+    <div class="panel-heading">Detail lekce @Model.ActivityType.Name</div>
+    <table class="table table-bordered table-hover table-condensed">
+        <thead>
+
+        </thead>
+        <tbody>
+            <tr>
+                <td>Id</td>
+                <td>@Model.Id</td>
+            </tr>
+            <tr>
+                <td>Čas zahájení</td>
+                <td>@Model.StartTime</td>
+            </tr>
+            <tr>
+                <td>Čas ukončení</td>
+                <td>@Model.EndTime</td>
+            </tr>
+            <tr>
+                <td>Aktivita</td>
+                <td>@Model.ActivityType.Name</td>
+            </tr>
+            <tr>
+                <td>Místnost</td>
+                <td>@Model.Room.Name</td>
+            </tr>
+            <tr>
+                <td>Kapacita</td>
+                <td>@Model.ActualCapacity/@Model.OriginalCapacity</td>
+            </tr>
+            <tr>
+                <td>Instruktor</td>
+                <td>@Model.Instructor.FirstName @Model.Instructor.LastName</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+    @* Je třeba zavolat Html.Raw() pro výstup bez úprav, aby HTML znaky nebyly interpretovány jako prostý text, ale HTML znaky. *@
+    @Html.Raw(Model.DescriptionLesson)
+
+<br />
+
+<div class="panel panel-warning">
+    <div class="panel-heading">Registrovaní klienti</div>
+    <ul class="list-group">
+        @foreach (FitnessCentreUser client in ViewBag.ListReservedClients)
+        {
+            <li class="list-group-item"><span class="badge">ID @client.Id</span>@client.FirstName @client.LastName</li>
+        }
+    </ul>
+</div>
+<br />
+<br />
+
+@*<div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">*@
+<a href="@Url.Action("Index", "Lessons", new { isActive = true })" class="btn btn-info glyphicon glyphicon-triangle-left"> Zpět</a>
+@*</div>
+    </div>*@

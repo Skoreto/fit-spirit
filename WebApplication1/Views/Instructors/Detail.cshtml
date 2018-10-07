@@ -1,0 +1,53 @@
+﻿@model DataAccess.Model.FitnessCentreUser
+@{
+    ViewBag.Title = "Detail instruktora " + Model.FirstName + " " + Model.LastName;
+}
+
+@section Breadcrumbs
+{
+    <ul class="breadcrumbs-list">
+        <li class="breadcrumbs-label">Nacházíte se zde:</li>
+        <li><a href="@Url.Action("Index", "Instructors")">Instruktoři</a><i class="fa fa-angle-right"></i></li>
+        <li class="current">@ViewBag.Title</li>
+    </ul>
+}
+
+@* Pokud je vyplněn název fotografie - vykresli příslušnou fotografii. *@
+<div class="form-group margin-bottom text-center">
+    @if (!string.IsNullOrEmpty(Model.ProfilePhotoName))
+    {
+        <img src="@Url.Content("~/uploads/profilePhoto/" + Model.ProfilePhotoName)" class="img-thumbnail" />
+    }
+</div>
+
+<div class="form-group text-center col-sm-offset-2 col-sm-8">
+    <table class="table table-bordered table-hover table-condensed text-left">
+        <thead>
+
+        </thead>
+        <tbody>
+            <tr>
+                <td>Jméno</td>
+                <td>@Model.FirstName</td>
+            </tr>
+            <tr>
+                <td>Příjmení</td>
+                <td>@Model.LastName</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="form-group col-sm-offset-2 col-sm-8">
+    @* Je třeba zavolat Html.Raw() pro výstup bez úprav, aby HTML znaky nebyly interpretovány jako prostý text, ale HTML znaky. *@
+    @Html.Raw(Model.Description)
+</div>
+
+@if (!Request.IsAjaxRequest())
+{
+    <div class="form-group margin-top">
+        <div class="col-sm-offset-8 col-sm-2">
+            <a href="@Url.Action("Index", "Clients")" class="btn btn-info"><span class="glyphicon glyphicon-chevron-left"></span> Instruktoři</a>
+        </div>
+    </div>
+}

@@ -1,0 +1,22 @@
+﻿@model DataAccess.Model.FitnessCentreUser
+@{
+    ViewBag.Title = "Panel profilu uživatele";
+    Layout = null;
+}
+
+<style type="text/css">
+    .avatar {
+        background-image: url(@Url.Content("~/uploads/profilePhoto/" + Model.ProfilePhotoName));
+    }
+</style>
+
+<div class="section-content">
+    <div class="avatar"></div>
+    <div class="side-barTomSko">
+        <p class="text-muted">@Model.FirstName @Model.LastName</p>
+        @if (Model.Role.Identificator == "client")
+        {
+            <p class="text-muted">Kredit: @Model.Credit Kč</p>
+        }
+    </div>
+</div>

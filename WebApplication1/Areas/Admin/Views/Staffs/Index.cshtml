@@ -1,0 +1,46 @@
+﻿@using DataAccess.Model
+@model List<FitnessCentreUser>
+
+@{
+    ViewBag.Title = "Obsluha";
+}
+
+<table class="table table-hover table-condensed table-boxed">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Jméno</th>
+            <th>Aktivní</th>
+            <th><span hidden="hidden">Akce</span></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (FitnessCentreUser staff in Model)
+        {
+            <tr>
+                <td><a href="@Url.Action("Detail", "Staffs", new {id = staff.Id})">@staff.Id</a></td>
+                <td><a href="@Url.Action("Detail", "Staffs", new {id = staff.Id})">@staff.FirstName @staff.LastName</a></td>
+                @if (staff.IsActive)
+                {
+                    <td><span class="label label-success"><i class="fa fa-check"> ano</i></span></td>
+                }
+                else
+                {
+                    <td><span class="label label-danger"><i class="fa fa-close"> ne</i></span></td>
+                }
+                <td>
+                    <div class="btn-group">
+                        <a href="@Url.Action("Detail", "Staffs", new {id = staff.Id})" class="btn btn-info"><span class="glyphicon glyphicon-file"></span> Detail</a>
+                        <button data-toggle="dropdown" class="btn btn-info dropdown-toggle"><span class="caret"></span></button>
+                        <ul class="dropdown-menu">
+                            <li><a href="@Url.Action("Edit", "Staffs", new {id = staff.Id})"><span class="glyphicon glyphicon-pencil"></span> Upravit</a></li>
+                            <li><a href="@Url.Action("Delete", "Staffs", new { id = staff.Id, onclick = "return confirm('Opravdu si přejete smazat obsluhu " + staff.FirstName + " " + staff.LastName + "?" + "');" })"><span class="glyphicon glyphicon-trash"></span> Smazat</a></li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a href="@Url.Action("Create", "Staffs")" class="btn btn-default pull-right">Přidat obsluhu</a>

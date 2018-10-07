@@ -1,0 +1,114 @@
+﻿@using DataAccess.Model
+@model List<FitnessCentreUser>
+
+@{
+    ViewBag.Title = "Klienti";
+}
+
+@section Breadcrumbs
+{
+    <ul class="breadcrumbs-list">
+        <li class="breadcrumbs-label">Nacházíte se zde:</li>
+        <li><a href="#">Uživatelé</a><i class="fa fa-angle-right"></i></li>
+        <li class="current">@ViewBag.Title</li>
+    </ul>
+}
+
+<div class="row">
+    <div class="col-lg-6">
+        @using (Ajax.BeginForm("Index", "Clients", new AjaxOptions() { UpdateTargetId = "dynamicContent", InsertionMode = InsertionMode.Replace }))
+        {
+            <div class="input-group">
+                <input class="form-control pull-left" type="text" placeholder="Vyhledat klienta" name="phrase" id="searchBox"/>
+                <span class="input-group-btn">
+                    <button type="submit" class="btn btn-theme"><i class="fa fa-search"></i></button>
+                </span>
+            </div>
+        }
+    </div>
+</div>
+
+<br/>
+
+<table class="table table-hover table-condensed table-boxed">
+    <thead>
+    <tr>
+        <th>#</th>
+        <th>Jméno</th>
+        <th>Kredit</th>
+        <th>Aktivní</th>
+        <th><span hidden="hidden">Akce</span></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (FitnessCentreUser client in Model)
+    {
+        <tr class="@(client.IsActive ? "active" : "row-disabled")">
+            <td>@client.Id</td>
+            <td><a href="@Url.Action("Detail", "Clients", new {id = client.Id})">@client.FirstName @client.LastName</a></td>
+            <td>@client.Credit Kč</td>
+            @if (client.IsActive)
+            {
+                <td><span class="label label-success"><i class="fa fa-check"> ano</i></span></td>
+                <td>
+                    <div class="btn-group">
+                        <a href="@Url.Action("Detail", "Clients", new {id = client.Id})" class="btn btn-info"><span class="glyphicon glyphicon-file"></span> Detail</a>
+                        <button data-toggle="dropdown" class="btn btn-info dropdown-toggle"><span class="caret"></span></button>
+                        <ul class="dropdown-menu">
+                            <li><a href="@Url.Action("Edit", "Clients", new {id = client.Id})"><span class="glyphicon glyphicon-pencil"></span> Upravit</a></li>
+                        </ul>
+                    </div>
+                    <a href="@Url.Action("Index", "CreditAdministration", new {clientId = client.Id})" class="btn btn-warning"><span class="glyphicon glyphicon-plus"></span> Kredit</a>
+                </td>
+            }
+            else
+            {
+                <td><span class="label label-danger"><i class="fa fa-close"> ne</i></span></td>
+                <td>
+                    <div class="btn-group">
+                        <a href="@Url.Action("Detail", "Clients", new {id = client.Id})" class="btn btn-info"><span class="glyphicon glyphicon-file"></span> Detail</a>
+                        <button data-toggle="dropdown" class="btn btn-info dropdown-toggle"><span class="caret"></span></button>
+                        <ul class="dropdown-menu">
+                            <li><a href="@Url.Action("Edit", "Clients", new {id = client.Id})"><span class="glyphicon glyphicon-pencil"></span> Upravit</a></li>
+                            <li><a href="@Url.Action("Delete", "Clients", new {id = client.Id, onclick = "return confirm('Opravdu si přejete smazat klienta " + client.FirstName + " " + client.LastName + "?" + "');"})"><span class="glyphicon glyphicon-trash"></span> Smazat</a></li>
+                        </ul>
+                    </div>
+                    <a href="@Url.Action("Activate", "Clients", new {id = client.Id})" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span> Aktivovat</a>
+                </td>
+            }
+        </tr>
+    }
+    </tbody>
+</table>
+
+@if (ViewBag.PagesSearched != null)
+{
+    <ul class="pagination">
+        @for (int i = 1; i <= ViewBag.PagesSearched; i++)
+        {
+            <li class="@(ViewBag.CurrentPageSearched == i ? "active" : "")">
+                @Ajax.ActionLink(i.ToString(), "Index", new { phrase = ViewBag.CurrentPhraseSearched, page = i }, new AjaxOptions() { InsertionMode = InsertionMode.Replace, UpdateTargetId = "dynamicContent" })
+            </li>
+        }
+    </ul>
+}
+
+<script type="text/javascript">
+    $(function () {
+        $("#searchBox").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: '@Url.Action("SearchClients", "Clients")',
+                    dataType: "json",
+                    data: {
+                        query: request.term
+                    },
+                    success: function (data) {
+                        response(data);
+                    }
+                });
+            },
+            minLength: 2
+        });
+    });
+</script>

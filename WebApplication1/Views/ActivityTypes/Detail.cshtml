@@ -1,0 +1,30 @@
+﻿@model DataAccess.Model.ActivityType
+@{
+    ViewBag.Title = Model.Name;
+}
+
+@if (Request.IsAjaxRequest())
+{
+    <h2>@Model.Name</h2>
+}
+
+@section Breadcrumbs
+{
+    <ul class="breadcrumbs-list">
+        <li class="breadcrumbs-label">Nacházíte se zde:</li>
+        <li><a href="@Url.Action("Index", "ActivityTypes")">Aktivity</a><i class="fa fa-angle-right"></i></li>
+        <li class="current">@ViewBag.Title</li>
+    </ul>
+}
+
+@if (!string.IsNullOrEmpty(Model.IllustrationImageName))
+{
+    <img src="@Url.Content("~/uploads/activityImage/" + Model.IllustrationImageName)" />
+}
+
+<br/>
+<br/>
+
+<p>Cena lekce: @Model.Price Kč</p>
+
+@Html.Raw(Model.Description)

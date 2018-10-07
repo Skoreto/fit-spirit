@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="DataAccess" namespace="DataAccess.Model">
+
+  <class name="Lesson" table="lesson">
+    <id name="Id" column="id">
+      <generator class="native" />    <!-- native - hodnoty se budou nativním způsobem přiřazovat do databázového serveru -->
+    </id>
+    <property name="StartTime" column="start_time" />
+    <property name="EndTime" column="end_time" />
+    <many-to-one name="ActivityType" column="activity_type_id" foreign-key="activity_type_id" />
+    <many-to-one name="Room" column="room_id" foreign-key="room_id" />
+    <property name="OriginalCapacity" column="original_capacity" />
+    <property name="ActualCapacity" column="actual_capacity" />
+    <many-to-one name="Instructor" column="instructor_id" foreign-key="instructor_id" />
+    <property name="DescriptionLesson" column="description_lesson" />
+    <property name="IsActive" column="is_active" />
+  </class>
+
+</hibernate-mapping>

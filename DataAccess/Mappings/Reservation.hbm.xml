@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="DataAccess" namespace="DataAccess.Model">
+
+  <class name="Reservation" table="reservation">
+    <id name="Id" column="reservation_id">
+      <generator class="native" />
+      <!-- native - hodnoty se budou nativním způsobem přiřazovat do databázového serveru -->
+    </id>
+    <property name="ReservationTime" column="reservation_time" />
+    <many-to-one name="Lesson" column="lesson_id" foreign-key="lesson_id" />
+    <many-to-one name="Client" column="client_id" foreign-key="client_id" />
+  </class>
+
+</hibernate-mapping>

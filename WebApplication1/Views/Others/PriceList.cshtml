@@ -1,0 +1,34 @@
+﻿@using DataAccess.Model
+@model List<ActivityType>
+
+@{
+    ViewBag.Title = "Ceník";
+}
+
+<table class="table table-hover table-condensed table-boxed">
+    <thead>
+        <tr>
+            <th>Aktivita</th>
+            <th>Cena lekce</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (ActivityType activityType in Model)
+        {
+            <tr>
+                <td><a href="@Url.Action("Detail", "ActivityTypes", new {id = activityType.Id})">@activityType.Name</a></td>
+                <td>@activityType.Price Kč</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@if (ViewBag.Pages != null)
+{
+    <ul class="pagination">
+        @for (int i = 1; i <= ViewBag.Pages; i++)
+        {
+            <li class="@(ViewBag.CurrentPage == i ? "active" : "")"><a href="@Url.Action("PriceList", "Others", new {page=i})">@i</a></li>
+        }
+    </ul>
+}

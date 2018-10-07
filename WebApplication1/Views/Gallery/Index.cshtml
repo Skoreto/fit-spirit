@@ -1,0 +1,39 @@
+﻿@using DataAccess.Model;
+@model List<Photography>
+
+@{
+    ViewBag.Title = "Galerie";
+    Layout = "~/Views/Shared/_LayoutSideless.cshtml";
+}
+
+<div id="blueimp-gallery" class="blueimp-gallery">
+    <div class="slides"></div>
+    <h3 class="title"></h3>
+    <a class="prev">‹</a>
+    <a class="next">›</a>
+    <a class="close">×</a>
+    <a class="play-pause"></a>
+    <ol class="indicator"></ol>
+</div>
+
+<div class="page-row">
+    <p>Chceme, abyste se u nás cítily příjemně a tomu jsme podřídili zbudování celého studia. Pro maminky s dětmi máme připravený dětský koutek se spoustou hraček.</p>
+</div>
+<div class="row page-row">
+    @foreach (Photography photography in Model)
+    {
+        <div class="col-md-4 col-sm-4 col-xs-12 text-center">
+            <a href="@Url.Content("~/uploads/photographyImage/" + photography.IllustrationImageName)" title="@photography.Name" data-gallery><img class="img-responsive img-thumbnail" src="@Url.Content("~/uploads/photographyThumbImage/" + photography.IllustrationThumbImageName)" alt="Fotografie @photography.Id" /></a>
+        </div>
+    }
+</div>
+
+@if (ViewBag.Pages != null)
+{
+    <ul class="pagination">
+        @for (int i = 1; i <= ViewBag.Pages; i++)
+        {
+            <li class="@(ViewBag.CurrentPage == i ? "active" : "")"><a href="@Url.Action("Index", "Gallery", new {page=i})">@i</a></li>
+        }
+    </ul>
+}

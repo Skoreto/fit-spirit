@@ -1,0 +1,113 @@
+﻿@model DataAccess.Model.FitnessCentreUser
+@{
+    ViewBag.Title = "Úprava klienta " + Model.FirstName + " " + Model.LastName;
+}
+
+@section Breadcrumbs
+{
+    <ul class="breadcrumbs-list">
+        <li class="breadcrumbs-label">Nacházíte se zde:</li>
+        <li><a href="@Url.Action("Index", "Clients")">Uživatelé</a><i class="fa fa-angle-right"></i></li>
+        <li><a href="@Url.Action("Index", "Clients")">Klienti</a><i class="fa fa-angle-right"></i></li>
+        <li class="current">@ViewBag.Title</li>
+    </ul>
+}
+
+@using (Html.BeginForm("Update", "Clients", FormMethod.Post, new { @class = "form-horizontal", enctype = "multipart/form-data" }))
+{
+    @Html.HiddenFor(x => x.Id) @* Předáme si původní Id návštěvníka *@
+    @Html.HiddenFor(x=>x.ProfilePhotoName)    
+ 
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Login</label>
+        <div class="col-sm-10">
+            @Html.TextBoxFor(x => x.Login, new {@class = "form-control"})
+            @Html.ValidationMessageFor(x => x.Login)
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Heslo</label>
+        <div class="col-sm-10">
+            @Html.TextBoxFor(x => x.Password, new {@class = "form-control", type = "password"})
+            @Html.ValidationMessageFor(x => x.Password)
+        </div>
+    </div> 
+           
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Jméno</label>
+        <div class="col-sm-10">
+            @Html.TextBoxFor(x => x.FirstName, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.FirstName)
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Příjmení</label>
+        <div class="col-sm-10">
+            @Html.TextBoxFor(x => x.LastName, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.LastName)
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Ulice</label>
+        <div class="col-sm-10">
+            @Html.TextBoxFor(x => x.Street, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.Street)
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Město</label>
+        <div class="col-sm-10">
+            @Html.TextBoxFor(x => x.City, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.City)
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">PSČ</label>
+        <div class="col-sm-10">
+            @Html.TextBoxFor(x => x.PostCode, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.PostCode)
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Telefon</label>
+        <div class="col-sm-10">
+            @Html.TextBoxFor(x => x.Telephone, new {@class = "form-control"})
+            @Html.ValidationMessageFor(x => x.Telephone)
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Zůstatek kreditu</label>
+        <div class="col-sm-10">
+            @Html.TextBoxFor(x => x.Credit, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.Credit)
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Foto</label>
+        <div class="col-sm-10">
+            <input type="file" name="profilePhoto"/>
+            @* Pokud byla vyplněna cesta vybrané fotografie, tak ji pod inputem zobrazíme *@
+            @if (!string.IsNullOrEmpty(Model.ProfilePhotoName))
+            {
+                <img src="@Url.Content("~/uploads/profilePhoto/" + Model.ProfilePhotoName)"/>
+            }
+        </div>
+    </div>
+        
+    <br />
+    <br />
+
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-default">Upravit klienta</button>
+        </div>
+    </div>
+}

@@ -1,0 +1,37 @@
+﻿@model DataAccess.Model.Photography
+@{
+    ViewBag.Title = "Přidat fotografii";
+}
+
+@section Breadcrumbs
+{
+    <ul class="breadcrumbs-list">
+        <li class="breadcrumbs-label">Nacházíte se zde:</li>
+        <li><a href="@Url.Action("Index", "Gallery")">Galerie</a><i class="fa fa-angle-right"></i></li>
+        <li class="current">@ViewBag.Title</li>
+    </ul>
+}
+
+@using (Html.BeginForm("Add", "Gallery", FormMethod.Post, new { @class = "form-horizontal", enctype = "multipart/form-data" }))
+{
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Titulek fotografie</label>
+        <div class="col-sm-10">
+            @Html.TextBoxFor(x => x.Name, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.Name)
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Umístění fotografie</label>
+        <div class="col-sm-10">
+            <input type="file" name="photographyImage" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-default">Přidat fotografii</button>
+        </div>
+    </div>
+}

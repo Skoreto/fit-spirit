@@ -1,0 +1,39 @@
+﻿@using DataAccess.Model
+@model List<FitnessCentreRole>
+
+@{
+    ViewBag.Title = "Role";
+}
+
+<table class="table table-hover table-condensed table-boxed">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Identifikátor</th>
+            <th>Pojmenování</th>
+            <th><span hidden="hidden">Akce</span></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (FitnessCentreRole role in Model)
+        {
+            <tr>
+                <td>@role.Id</td>
+                <td>@role.Identificator</td>
+                <td>@role.RoleDescription</td>
+                <td>
+                    <div class="btn-group">
+                        <a href="@Url.Action("Edit", "RolesManagement", new { id = role.Id })" class="btn btn-info"><span class="glyphicon glyphicon-pencil"></span> Upravit</a>
+                        <button data-toggle="dropdown" class="btn btn-info dropdown-toggle"><span class="caret"></span></button>
+                        <ul class="dropdown-menu">
+                            <li><a href="@Url.Action("Delete", "RolesManagement", new { id = role.Id, onclick = "return confirm('Opravdu si přejete smazat roli " + role.RoleDescription + "?" + "');" })"><span class="glyphicon glyphicon-trash"></span> Smazat</a></li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a href="@Url.Action("Create", "RolesManagement")" class="btn btn-default pull-right">Přidat roli</a>
+@*<div class="clearfix"></div>*@

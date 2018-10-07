@@ -1,0 +1,63 @@
+﻿@model DataAccess.Model.ActivityType
+@{
+    ViewBag.Title = "Nový druh aktivity";
+}
+
+@section Breadcrumbs
+{
+    <ul class="breadcrumbs-list">
+        <li class="breadcrumbs-label">Nacházíte se zde:</li>
+        <li><a href="@Url.Action("Index", "ActivityTypes")">Aktivity</a><i class="fa fa-angle-right"></i></li>
+        <li class="current">@ViewBag.Title</li>
+    </ul>
+}
+
+@using (Html.BeginForm("Add", "ActivityTypes", FormMethod.Post, new {@class = "form-horizontal", enctype = "multipart/form-data" }))
+{
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Název aktivity</label>
+        <div class="col-sm-10">
+            <!-- Použití HTMLHelperů; svazování formuláře s modelem -->
+            @Html.TextBoxFor(x => x.Name, new {@class = "form-control"}) <!-- PostFix For evokuje, že tento TextBox je pro nějakou vlastnost. Ta vlastnost je spjatá s modelem - tato skutečnost se zanáší pomocí lambda výrazu. -->
+            @Html.ValidationMessageFor(x => x.Name)
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Cena lekce</label>
+        <div class="col-sm-10 input-group">
+            @Html.TextBoxFor(x => x.Price, new {@class = "form-control"})
+            @Html.ValidationMessageFor(x => x.Price)
+            <span class="input-group-addon">Kč</span>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Ilustrace aktivity</label>
+        <div class="col-sm-10">
+            <input type="file" name="activityImage"/>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Krátký popis</label>
+        <div class="col-sm-10">
+            @Html.TextAreaFor(x => x.ShortDescription, new {@class = "form-control tinymce"})
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Detailní popis</label>
+        <div class="col-sm-10">
+            @Html.TextAreaFor(x => x.Description, new {@class = "form-control tinymce"})
+        </div>
+    </div>
+
+    <br/>
+    <br/>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-default">Vytvořit aktivitu</button>
+        </div>
+    </div>
+}
